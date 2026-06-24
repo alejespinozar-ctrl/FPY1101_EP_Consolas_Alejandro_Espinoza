@@ -1,3 +1,18 @@
+def validar_sigla(sigla, consolas):
+    if not (2 <= len(sigla) <= 5):
+        return False
+    if not sigla.isupper() or not sigla.isalpha():
+        return False
+    if sigla in consolas:
+        return False
+    return True
+
+def validar_nombre(nombre):
+    return 3 <= len(nombre) <= 40
+
+def validar_fabricante(fabricante):
+    return 2 <= len(fabricante) <= 30
+
 def mostar_menu():
     print(f"==MENU PRINCIPAL===\n1. Agregar consola\n2. Buscar consola por sigla\n3. Eliminar consola\n4. Mostrar todas las consolas\n5. Salir")
 
