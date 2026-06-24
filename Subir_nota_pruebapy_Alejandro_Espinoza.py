@@ -13,6 +13,33 @@ def validar_nombre(nombre):
 def validar_fabricante(fabricante):
     return 2 <= len(fabricante) <= 30
 
+def validar_anio(anio_str):
+    if not anio_str.isdigit():
+        return False
+    anio = int(anio_str)
+    return 1972 <= anio <= 2025
+
+def validar_precio(precio_str):
+    try:
+        precio = float(precio_str)
+        return precio > 0
+    except ValueError:
+        return False
+    
+def validar_stock(stock_str):
+    if not stock_str.isdigit():
+        return False
+    stock = int(stock_str)
+    return stock >= 0
+
+def buscar_consola(sigla, consolas):
+    return sigla in consolas
+
+def agregar_consola(consolas, ventas):
+    print("\n--- Opción 1: Agregar Consola ---")
+    sigla = input("Ingrese la sigla de la consola (2-5 letras mayúsculas): ").strip()
+
+
 def mostar_menu():
     print(f"==MENU PRINCIPAL===\n1. Agregar consola\n2. Buscar consola por sigla\n3. Eliminar consola\n4. Mostrar todas las consolas\n5. Salir")
 
