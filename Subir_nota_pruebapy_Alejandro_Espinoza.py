@@ -37,8 +37,42 @@ def buscar_consola(sigla, consolas):
 
 def agregar_consola(consolas, ventas):
     print("\n--- Opción 1: Agregar Consola ---")
+    
     sigla = input("Ingrese la sigla de la consola (2-5 letras mayúsculas): ").strip()
+    
+    if not validar_sigla(sigla, consolas):
+        print("Error: Sigla inválida (debe ser mayúscula, de 2 a 5 letras y no estar repetida).")
+        return
+    
+    nombre = input("Ingrese el nombre de la consola (3-40 caracteres): ").strip()
 
+    if not validar_nombre(nombre):
+        print("Error: Nombre inválido (debe tener entre 3 y 40 caracteres).")
+        return
+    
+    fabricante = input("Ingrese el fabricante (2-30 caracteres): ").strip()
+
+    if not validar_fabricante(fabricante):
+        print("Error: Fabricante inválido (debe tener entre 2 y 30 caracteres).")
+        return
+   
+    anio_str = input("Ingrese el año de lanzamiento (1972-2025): ").strip()
+
+    if not validar_anio(anio_str):
+        print("Error: Año inválido (debe ser un número entero entre 1972 y 2025).")
+        return
+    
+    precio_str = input("Ingrese el precio (mayor a 0): ").strip()
+    
+    if not validar_precio(precio_str):
+        print("Error: Precio inválido (debe ser un número decimal mayor a 0).")
+        return
+    
+    stock_str = input("Ingrese el stock (mayor o igual a 0): ").strip()
+
+    if not validar_stock(stock_str):
+        print("Error: Stock inválido (debe ser un número entero mayor o igual a 0).")
+        return
 
 def mostar_menu():
     print(f"==MENU PRINCIPAL===\n1. Agregar consola\n2. Buscar consola por sigla\n3. Eliminar consola\n4. Mostrar todas las consolas\n5. Salir")
@@ -56,7 +90,7 @@ def dicion():
         op = leer_op()
         
         if op == "1":
-            pass
+            agregar_consola(dicc_consolas, dicc_ventas)
         elif op == "2":
             pass
         elif op == "3":
