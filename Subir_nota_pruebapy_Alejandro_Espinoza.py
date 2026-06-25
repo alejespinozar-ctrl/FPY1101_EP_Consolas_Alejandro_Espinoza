@@ -45,34 +45,82 @@ def agregar_consola(consolas, ventas):
         return
     
     nombre = input("Ingrese el nombre de la consola (3-40 caracteres): ").strip()
-
+    
     if not validar_nombre(nombre):
         print("Error: Nombre inválido (debe tener entre 3 y 40 caracteres).")
         return
-    
     fabricante = input("Ingrese el fabricante (2-30 caracteres): ").strip()
-
+    
     if not validar_fabricante(fabricante):
         print("Error: Fabricante inválido (debe tener entre 2 y 30 caracteres).")
         return
-   
     anio_str = input("Ingrese el año de lanzamiento (1972-2025): ").strip()
-
+    
     if not validar_anio(anio_str):
         print("Error: Año inválido (debe ser un número entero entre 1972 y 2025).")
         return
-    
     precio_str = input("Ingrese el precio (mayor a 0): ").strip()
     
     if not validar_precio(precio_str):
         print("Error: Precio inválido (debe ser un número decimal mayor a 0).")
         return
-    
     stock_str = input("Ingrese el stock (mayor o igual a 0): ").strip()
-
+    
     if not validar_stock(stock_str):
         print("Error: Stock inválido (debe ser un número entero mayor o igual a 0).")
         return
+
+    consolas[sigla] = [nombre, fabricante, int(anio_str)]
+    ventas[sigla] = [float(precio_str), int(stock_str)]
+    print(f"Consola {sigla} agregada exitosamente al sistema")
+
+def buscar_y_mostrar_consola(consolas, ventas):
+    print("\n--- Opción 2: Buscar Consola por Sigla ---")
+    sigla = input("Ingrese la sigla a buscar: ").strip().upper()
+    
+    if buscar_consola(sigla, consolas):
+        datos = consolas[sigla]
+        comercial = ventas[sigla]
+        print("\n=== Consola Encontrada ===")
+        print(f"Sigla       : {sigla}")
+        print(f"Nombre      : {datos[0]}")
+        print(f"Fabricante  : {datos[1]}")
+        print(f"Año lanz.   : {datos[2]}")
+        print(f"Precio      : ${comercial[0]:,.2f}")
+        print(f"Stock       : {comercial[1]} unidades")
+    else:
+        print(f"No se encontró ninguna consola con la sigla '{sigla}'.")
+
+def eliminar_consola(consolas, ventas):
+    print("\n--- Opción 3: Eliminar Consola ---")
+    sigla = input("Ingrese la sigla de la consola a eliminar: ").strip().upper()
+    
+    if buscar_consola(sigla, consolas):
+        del consolas[sigla]
+        del ventas[sigla]
+        print(f"La consola '{sigla}' ha sido eliminada con éxito de ambos registros.")
+    else:
+        print(f"Error: No existe la consola con la sigla '{sigla}'.")
+
+
+def mostrar_todas_las_consolas(consolas, ventas):
+    print("==============================")
+    print("LISTADO COMPLETO DE CONSOLAS")
+    print("==============================")
+    
+    if not consolas:
+        print("El sistema está vacío. No hay consolas registradas.")
+        print("==============================")
+        print("Total de consolas: 0")
+        return
+
+    for sigla in consolas.keys():
+        nombre, fabricante, anio = consolas[sigla]
+        precio, stock = ventas[sigla]
+        print(f"Sigla: {sigla} | {nombre} | {fabricante} | {anio} | ${precio:,.2f} | Stock: {stock}")
+        
+    print("==============================")
+    print(f"Total de consolas: {len(consolas)}")
 
 def mostar_menu():
     print(f"==MENU PRINCIPAL===\n1. Agregar consola\n2. Buscar consola por sigla\n3. Eliminar consola\n4. Mostrar todas las consolas\n5. Salir")
@@ -92,11 +140,11 @@ def dicion():
         if op == "1":
             agregar_consola(dicc_consolas, dicc_ventas)
         elif op == "2":
-            pass
+            buscar_y_mostrar_consola(dicc_consolas, dicc_ventas)
         elif op == "3":
-            pass
+            eliminar_consola(dicc_consolas, dicc_ventas)
         elif op == "4":
-            pass
+            mostrar_todas_las_consolas(dicc_consolas, dicc_ventas)
         elif op == "5":
             print("\nSaliendo del sistema\n¡Esperamos que vulva pronto!")
             break
